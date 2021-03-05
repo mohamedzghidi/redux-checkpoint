@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 const mapStateToProps = (state) => {
   return {
     todos: state.todos,
+    filteredTodos: state.filteredTodos,
   };
 };
 

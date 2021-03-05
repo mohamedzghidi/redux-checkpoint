@@ -9,24 +9,40 @@ import "./App.css";
 import AddTask from "./Components/AddTask";
 import Filter from "./Components/Filter";
 
+const initialTodos = [
+  {
+    id: 0,
+    description: "Learn about React",
+    isDone: false,
+  },
+  {
+    id: 1,
+    description: "Meet friends for lunch",
+    isDone: false,
+  },
+  {
+    id: 2,
+    description: "Build really cool todo app",
+    isDone: false,
+  },
+];
 const initialState = {
-  todos: [
-    {
-      id: 0,
-      description: "Learn about React",
-      isDone: false,
-    },
-    {
-      id: 1,
-      description: "Meet friends for lunch",
-      isDone: false,
-    },
-    {
-      id: 2,
-      description: "Build really cool todo app",
-      isDone: false,
-    },
-  ],
+  todos: initialTodos,
+  filteredTodos: initialTodos,
+  filterType: "All",
+};
+
+const getFiltered = (todos, filter) => {
+  switch (filter) {
+    case "Active": {
+      return todos.filter((todo) => todo.isDone === false);
+    }
+    case "Done": {
+      return todos.filter((todo) => todo.isDone);
+    }
+    default:
+      return todos;
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -34,7 +50,10 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "REMOVE": {
       const newTodos = state.todos.filter((item) => item.id != action.payload);
-      return { todos: newTodos };
+      return {
+        todos: newTodos,
+        filteredTodos: getFiltered(newTodos, state.filterType),
+      };
     }
     case "ADD": {
       const newTodos = [...state.todos];
@@ -44,7 +63,10 @@ const reducer = (state = initialState, action) => {
         isDone: false,
       };
       newTodos.push(newTodo);
-      return { todos: newTodos };
+      return {
+        todos: newTodos,
+        filteredTodos: getFiltered(newTodos, state.filterType),
+      };
     }
 
     case "EDIT": {
@@ -54,7 +76,10 @@ const reducer = (state = initialState, action) => {
         }
         return todo;
       });
-      return { todos: newTodos };
+      return {
+        todos: newTodos,
+        filteredTodos: getFiltered(newTodos, state.filterType),
+      };
     }
 
     case "DONE": {
@@ -64,25 +89,34 @@ const reducer = (state = initialState, action) => {
         }
         return todo;
       });
-      return { todos: newTodos, filteredTodos: state.filteredTodos };
+      return {
+        todos: newTodos,
+        filteredTodos: getFiltered(newTodos, state.filterType),
+      };
     }
 
     case "FILTER": {
-      console.log(action.payload);
-      switch (action.payload) {
-        case "Active": {
-          const newTodos = [...state.todos].filter(
-            (todo) => todo.isDone === false
-          );
-          return { todos: newTodos };
-        }
-        case "Done": {
-          const newTodos = [...state.todos].filter((todo) => todo.isDone);
-          return { todos: newTodos };
-        }
-        default:
-          return state;
-      }
+      state.filterType = action.payload;
+      const filtered = getFiltered(state.todos, action.payload);
+      console.log("Filtered: ", filtered);
+      return {
+        todos: state.todos,
+        filteredTodos: filtered,
+      };
+      // switch (action.payload) {
+      //   case "Active": {
+      //     const newTodos = [...state.todos].filter(
+      //       (todo) => todo.isDone === false
+      //     );
+      //     return { todos: newTodos };
+      //   }
+      //   case "Done": {
+      //     const newTodos = [...state.todos].filter((todo) => todo.isDone);
+      //     return { todos: newTodos };
+      //   }
+      //   default:
+      //     return state;
+      // }
     }
 
     default:

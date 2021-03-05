@@ -5,13 +5,14 @@ import Task from "./Task";
 const mapStateToProps = (state) => {
   return {
     todos: state.todos,
+    filteredTodos: state.filteredTodos,
   };
 };
 
 const TaskList = (props) => {
   return (
     <div>
-      {props.todos.map((todo, index) => (
+      {props.filteredTodos.map((todo, index) => (
         <Task key={index} todo={todo} />
       ))}
     </div>
