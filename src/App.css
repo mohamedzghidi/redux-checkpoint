@@ -3,6 +3,51 @@
   margin: auto;
 }
 
+.badge {
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 16px;
+}
+.badge:hover {
+  transform: scale(1.2);
+}
+
+.todo {
+  width: 50%;
+  margin: auto;
+}
+
+.fa {
+  cursor: pointer;
+  margin-left: 10px;
+}
+.fa:hover {
+  transform: scale(1.2);
+}
+
+.delete {
+  font-size: 30px;
+  color: red;
+  vertical-align: center;
+}
+
+.edit {
+  font-size: 30px;
+  color: green;
+  vertical-align: center;
+}
+.save {
+  font-size: 30px;
+  color: blue;
+  vertical-align: center;
+}
+
+.done {
+  font-size: 30px;
+  color: darkviolet;
+  vertical-align: center;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

@@ -9,16 +9,6 @@ const mapStateToProps = (state) => {
 };
 
 const TaskList = (props) => {
-  console.log("Amir: ", props.todos);
-
-  const increment = () => {
-    props.dispatch({ type: "INCREMENT" });
-  };
-
-  const decrement = () => {
-    props.dispatch({ type: "DECREMENT" });
-  };
-
   return (
     <div>
       {props.todos.map((todo, index) => (
@@ -26,18 +16,6 @@ const TaskList = (props) => {
       ))}
     </div>
   );
-
-  //   return (
-
-  //     <div className="counter">
-  //       <h2>Counter</h2>
-  //       <div>
-  //         <button onClick={() => decrement()}>-</button>
-  //         <span className="count">{props.todos[0].description}</span>
-  //         <button onClick={() => increment()}>+</button>
-  //       </div>
-  //     </div>
-  //   );
 };
 
 export default connect(mapStateToProps)(TaskList);

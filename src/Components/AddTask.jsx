@@ -20,10 +20,7 @@ const AddTask = (props) => {
   };
 
   return (
-    <div
-      className="row justify-content-between text-white p-2"
-      style={{ width: "60%", margin: "auto" }}
-    >
+    <div className="row justify-content-between text-white p-2 todo">
       <div className="form-group flex-fill mb-2">
         <input
           type="text"
